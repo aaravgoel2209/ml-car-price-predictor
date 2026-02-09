@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global theme */
+:root {
+    --bg-start: #0b1020;
+    --bg-end: #1e293b;
+    --card-bg: #111827;  /* gray-900 */
+    --card-border: #1f2937; /* gray-800 */
+    --text-primary: #e5e7eb; /* gray-200 */
+    --text-secondary: #9ca3af; /* gray-400 */
+    --accent: #f59e0b; /* amber-500 for a more unique vibe */
+    --accent-2: #ef4444; /* red-500 */
+}
+
+body.bg-dark {
+    min-height: 100vh;
+    background: radial-gradient(120% 120% at 15% 15%, var(--bg-start) 0%, var(--bg-end) 60%, #0a0f1b 100%);
+    color: var(--text-primary);
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.app-header {
+    text-align: center;
+    padding: 2rem 0 1rem;
+}
+
+.app-title {
+    font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+}
+
+.card-modern {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+.card-modern .card-header {
+    border-bottom: 1px solid var(--card-border);
+    background: transparent;
+}
+
+.helper-text {
+    color: var(--text-secondary);
+}
+
+label b {
+    color: var(--text-primary);
+}
+
+.form-control, .custom-select, select.form-control {
+    background-color: #0b1220;
+    border: 1px solid #23314d;
+    color: var(--text-primary);
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
+}
+
+/* Prevent Bootstrap from turning inputs white on focus */
+.form-control:focus, select.form-control:focus, .custom-select:focus {
+    background-color: #0b1220;
+    color: var(--text-primary);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(245, 158, 11, 0.15); /* amber glow */
+}
+
+/* Improve select dropdown appearance */
+select.form-control option {
+    background-color: #0b1220;
+    color: var(--text-primary);
+}
+
+.form-control::placeholder {
+    color: #64748b;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border: none;
+}
+
+.btn-primary:hover {
+    filter: brightness(1.08);
+}
+
+/* Remove harsh focus outlines on buttons (keep subtle glow) */
+.btn:focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.15) !important; /* red glow */
+}
+
+#prediction {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.footer-note {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
