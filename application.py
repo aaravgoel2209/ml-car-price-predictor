@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request
 from flask_cors import CORS, cross_origin
-import pickle
+import json
 import pandas as pd
 import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 
-# Load model and data
-model = pickle.load(open('LinearRegressionModel.pkl', 'rb'))
+# Load JSON model coefficients and data
+with open('LinearRegressionModel.json', 'r') as f:
+    MODEL = json.load(f)
 car = pd.read_csv('Cleaned_Car_data.csv')
 
 
@@ -41,15 +42,20 @@ def predict():
     year = int(request.form.get('year'))
     driven = int(request.form.get('kilo_driven'))
 
-    input_df = pd.DataFrame(
-        [[car_model, company, year, driven, fuel_type]],
-        columns=['name', 'company', 'year', 'kms_driven', 'fuel_type']
-    )
+    # Compute linear prediction using JSON coefficients
+    intercept = MODEL['intercept']
+    coef_year = MODEL['numeric'].get('year', 0.0)
+    coef_kms = MODEL['numeric'].get('kms_driven', 0.0)
 
-    prediction = model.predict(input_df)
+    y = intercept + coef_year * year + coef_kms * driven
 
-    return str(np.round(prediction[0], 2))
+    # Add categorical contributions (OneHot coefficients)
+    y += MODEL['categorical']['name'].get(car_model, 0.0)
+    y += MODEL['categorical']['company'].get(company, 0.0)
+    y += MODEL['categorical']['fuel_type'].get(fuel_type, 0.0)
+
+    return str(np.round(y, 2))
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

@@ -10,11 +10,11 @@ A simple end-to-end project that cleans a scraped car listings dataset, trains a
 
 ## Quick Start
 
-### 1) Install dependencies
+### 1) Install dependencies (via pyproject)
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install .
 ```
 
 ### 2) Run the app
@@ -46,22 +46,31 @@ Response is a numeric price (INR).
 - [quikr_car.csv](quikr_car.csv) — Raw dataset
 - [Cleaned_Car_data.csv](Cleaned_Car_data.csv) — Cleaned dataset used for app options
 - [LinearRegressionModel.pkl](LinearRegressionModel.pkl) — Saved pipeline model
-- [requirements.txt](requirements.txt) — Python dependencies
+- [pyproject.toml](pyproject.toml) — Python dependencies and metadata
 
 ## How It Works
-1. Notebook cleans and prepares the data, then trains a Multiple Linear Regression model with OneHotEncoder for categorical features.
+1. The notebook cleans and prepares the data, then trains a Linear Regression pipeline with OneHotEncoder for categorical features.
 2. The trained pipeline is saved to [LinearRegressionModel.pkl](LinearRegressionModel.pkl).
-3. The Flask app loads the model and the cleaned dataset to populate dropdowns and run predictions.
+3. The Flask app loads the model and the cleaned dataset to populate dropdowns and run predictions (debug disabled by default).
+
+### Evaluation and Metrics
+- Test split and cross-validation are used to assess performance.
+- Reported metrics: R², MAE, RMSE, and MAPE.
+- Both 10-fold K-Fold and RepeatedKFold are included for robust estimates.
 
 ## Notes
-- The UI is optimized for a dark theme; focus states are customized.
+- Notebook text is concise and professional; sections focus on essentials.
 - Dropdown options are powered by the cleaned dataset; if you retrain, regenerate it.
 - Predictions expect realistic combinations of features for best results.
 
 ## Retraining (Optional)
-If you want to tweak or improve the model, open the notebook and run it end-to-end:
+Open the notebook and run it end-to-end:
 - [quikr-predictor.ipynb](quikr-predictor.ipynb)
-- Save the new pipeline as `LinearRegressionModel.pkl` and restart the app.
+- The notebook saves `LinearRegressionModel.pkl`; restart the app after retraining.
+
+### Recommended tweaks
+- Try regularized models (Ridge/Lasso) and tree-based models (RandomForest, XGBoost).
+- Feature engineering (log transforms, interactions) can improve error metrics.
 
 ## Tech Stack
 - Python, Flask, Jinja2
@@ -69,7 +78,6 @@ If you want to tweak or improve the model, open the notebook and run it end-to-e
 - Bootstrap + custom CSS
 
 ## Future Ideas
-- Try tree-based models (Random Forest, XGBoost)
-- Add k-fold cross-validation
-- Add endpoints for batch predictions
-- Containerize with Docker for easy deployment
+- Model benchmarking dashboard with CV metrics summary
+- Batch prediction endpoint
+- Containerize with Docker for deployment
