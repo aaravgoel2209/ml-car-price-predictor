@@ -45,12 +45,12 @@ Response is a numeric price (INR).
 - [quikr-predictor.ipynb](quikr-predictor.ipynb) — Notebook with cleaning, EDA, and model training
 - [quikr_car.csv](quikr_car.csv) — Raw dataset
 - [Cleaned_Car_data.csv](Cleaned_Car_data.csv) — Cleaned dataset used for app options
-- [LinearRegressionModel.pkl](LinearRegressionModel.pkl) — Saved pipeline model
+- [LinearRegressionModel.json](LinearRegressionModel.json) — Saved pipeline model
 - [pyproject.toml](pyproject.toml) — Python dependencies and metadata
 
 ## How It Works
 1. The notebook cleans and prepares the data, then trains a Linear Regression pipeline with OneHotEncoder for categorical features.
-2. The trained pipeline is saved to [LinearRegressionModel.pkl](LinearRegressionModel.pkl).
+2. The trained pipeline is saved to [LinearRegressionModel.json](LinearRegressionModel.json).
 3. The Flask app loads the model and the cleaned dataset to populate dropdowns and run predictions (debug disabled by default).
 
 ### Evaluation and Metrics
